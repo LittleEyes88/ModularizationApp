@@ -1,0 +1,10 @@
+package com.example.componentlogin;
+
+public class LoginService implements ILoginService{
+    @Override
+    public void launch(Context context,String targetClass){
+        Intent intent=new Intent(context,LoginAcitvity.class);
+        intent.putExtras(LoginActivity.EXTRA_TARGET_CALSS,targetClass);
+        context.startActivity(intent);
+    }
+}

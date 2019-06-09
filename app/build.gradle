@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion compile_sdk_version.toInteger()
+    defaultConfig {
+        applicationId "com.example.rachel.moduleapp"
+        minSdkVersion min_sdk_version.toInteger()
+        targetSdkVersion target_sdk_version.toInteger()
+        buildToolsVersion '28.0.3'
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+//            storeFile file("mercku.debug.keystore")
+//            storePassword "android"
+//            keyAlias "moduleApp"
+//            keyPassword "android"
+        }
+        release {
+            // set by code below
+        }
+    }
+
+    productFlavors {
+        official {}
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support.constraint:constraint-layout:$constrait_layout" //无具体版本号用双引号
+    testImplementation 'junit:junit:4.12' //有具体版本号用单引号
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    if (!loginRunAlone.toBoolean()) {
+        implementation projext(':Componentlogin')
+    }
+}
